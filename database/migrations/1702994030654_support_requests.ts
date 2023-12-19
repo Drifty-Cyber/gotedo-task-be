@@ -1,13 +1,15 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'users'
+  protected tableName = 'support_requests'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').primary()
-      table.string('email_address', 80).notNullable()
-      table.string('full_name', 80).primary()
+      table.uuid('user_id').notNullable()
+      table.string('support_message_title').notNullable()
+      table.text('support_message_text').notNullable()
+      table.text('file').notNullable()
       table.timestamps(true, true)
     })
   }
