@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.uuid('user_id').references('id').inTable('users')
       table.string('support_message_title').notNullable()
       table.text('support_message_text').notNullable()
-      table.text('file').notNullable()
+      table.text('file_url').notNullable()
       table.timestamps(true, true)
     })
   }

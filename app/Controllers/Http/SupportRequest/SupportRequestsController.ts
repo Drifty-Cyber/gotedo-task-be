@@ -3,6 +3,7 @@ import uploadFile from 'App/Helpers/Upload'
 import SupportRequest from 'App/Models/SupportRequest'
 import User from 'App/Models/User'
 import RequestValidator from 'App/Validators/RequestValidator'
+import UserValidator from 'App/Validators/UserValidator'
 
 export default class SupportRequestsController {
   public async submitRequest({ request, response }: HttpContextContract) {
@@ -29,16 +30,33 @@ export default class SupportRequestsController {
       userId,
       supportMessageTitle,
       supportMessageText,
-      fileUrl,
+      fileUrl: fileUrl,
     }
 
     const supportRequest = await SupportRequest.firstOrCreate({ userId }, supportRequestPayload)
 
-    return response.ok({
+    return response.created({
       status: 'Success',
       message: 'Created Support Request successfully',
       statusCode: 201,
       results: supportRequest,
+    })
+  }
+
+  public async getUserRequests({ request, response }: HttpContextContract) {
+    const validatedBody = await request.validate(UserValidator)
+
+    const { emailAddress } = validatedBody
+
+    const user = await User.query().where('emailAddress', emailAddress).firstOrFail()
+
+    const requests = await SupportRequest.query().where('userId', user.id)
+
+    return response.ok({
+      status: 'Success',
+      message: 'Fetched User requests successfully',
+      statusCode: 201,
+      results: requests,
     })
   }
 }

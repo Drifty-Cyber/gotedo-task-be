@@ -29,6 +29,15 @@ Route.group(() => {
     return {
       name: 'Raphael Fadimu',
       email: 'raphaelfadimu@gmail.com',
+      phoneNumber: '08131932174',
     }
   })
+})
+
+Route.group(() => {
+  Route.post('/create-support-request', 'SupportRequest/SupportRequestsController.submitRequest')
+  Route.post(
+    '/get-user-support-requests',
+    'SupportRequest/SupportRequestsController.getUserRequests'
+  )
 })

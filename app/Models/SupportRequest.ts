@@ -18,7 +18,7 @@ export default class SupportRequest extends BaseModel {
   public supportMessageText: string
 
   @column()
-  public file: string
+  public fileUrl: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
