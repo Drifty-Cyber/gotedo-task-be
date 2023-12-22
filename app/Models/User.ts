@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, beforeCreate } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, beforeCreate, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import { v4 as uuid } from 'uuid'
+import SupportRequest from './SupportRequest'
 
 export default class User extends BaseModel {
   public static selfAssignPrimaryKey = true
@@ -24,4 +25,7 @@ export default class User extends BaseModel {
   public static assignUuid(user: User) {
     user.id = uuid()
   }
+
+  @hasMany(() => SupportRequest)
+  public supportRequests: HasMany<typeof SupportRequest>
 }

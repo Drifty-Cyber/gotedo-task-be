@@ -33,7 +33,7 @@ export default class SupportRequestsController {
       fileUrl: fileUrl,
     }
 
-    const supportRequest = await SupportRequest.firstOrCreate({ userId }, supportRequestPayload)
+    const supportRequest = await SupportRequest.create(supportRequestPayload)
 
     return response.created({
       status: 'Success',
