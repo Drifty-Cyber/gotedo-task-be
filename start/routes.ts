@@ -37,7 +37,7 @@ Route.group(() => {
 Route.group(() => {
   Route.post('/create-support-request', 'SupportRequest/SupportRequestsController.submitRequest')
   Route.post(
-    '/get-user-support-requests',
+    '/get-user-support-requests/:email',
     'SupportRequest/SupportRequestsController.getUserRequests'
   )
 })

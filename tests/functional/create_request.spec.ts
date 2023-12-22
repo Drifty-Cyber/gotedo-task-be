@@ -8,8 +8,8 @@ test('create request', async ({ client }) => {
 
   const response = await supertest(app.container.use('Adonis/Core/HttpContext').app)
     .post('/create-support-request')
-    .field('firstName', 'John')
-    .field('lastName', 'Doe')
+    .field('firstName', 'Raphael')
+    .field('lastName', 'Fadimu')
     .field('emailAddress', 'raphaelfadimu@gmail.com')
     .field('title', 'Bad Keyboard')
     .field('text', 'My Keyboard is bad')

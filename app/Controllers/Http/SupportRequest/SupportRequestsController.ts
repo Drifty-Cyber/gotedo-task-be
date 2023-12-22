@@ -43,19 +43,15 @@ export default class SupportRequestsController {
     })
   }
 
-  public async getUserRequests({ request, response }: HttpContextContract) {
-    const validatedBody = await request.validate(UserValidator)
-
-    const { emailAddress } = validatedBody
-
-    const user = await User.query().where('emailAddress', emailAddress).firstOrFail()
-
-    const requests = await SupportRequest.query().where('userId', user.id)
+  public async getUserRequests({ request, response, params: { email } }: HttpContextContract) {
+    const user = await User.query().where('emailAddress', email).firstOrFail()
+    const userId = await user.id
+    const requests = await SupportRequest.query().where('userId', userId)
 
     return response.ok({
       status: 'Success',
       message: 'Fetched User requests successfully',
-      statusCode: 201,
+      statusCode: 200,
       results: requests,
     })
   }
